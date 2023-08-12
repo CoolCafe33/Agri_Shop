@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+
+<style>
+    .flex-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .bg-image {
+        background-image: url('./parcel.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .centered h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+        color: #f8f4f4;
+        text-shadow: 2px 2px 2px #000000;
+    }
+
+    .centered p {
+        font-size: 24px;
+        margin-bottom: 40px;
+        color: #fffefe;
+        font-weight: 500;
+        text-shadow: 2px 2px 2px #070000;
+    }
+
+    .centered a {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 12px;
+        text-align: center;
+        font-size: 16px;
+        margin: 10px;
+        cursor: pointer;
+        border-radius: 12px;
+        transition: background-color 0.3s;
+        text-decoration: none;
+    }
+
+    .centered a:hover {
+        background-color: #3e8e41;
+    }
+
+    .csignup form {
+        width: 400px;
+        margin: 60px auto;
+        padding: 17px;
+        border: 5px solid #080000;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        background-color: #f5ecec;
+    }
+
+    .csignup label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 1000;
+    }
+
+    .csignup input[type=text],
+    input[type=email],
+    input[type=password] {
+        width: 100%;
+        padding: 6px;
+        margin-bottom: 10px;
+        border: 1px solid #0a0202;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .csignup .error {
+        display: block;
+        margin-top: 5px;
+        color: red;
+    }
+
+    .csignup button[type=submit] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .csignup button[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+    .csignup button[type=submit]:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+    }
+
+    .csignup-img {
+        background-image: url('./appless.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+
+    .fsignup-img {
+        background-image: url('./farmers.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+
+    .farmer-list-flex {
+        display: flex;
+        margin: 20px;
+    }
+
+    .form-container {
+        width: 40vw;
+        margin: 60px auto;
+        padding: 10px;
+        border: 2px solid black;
+    }
+
+    .form-container .heading {
+        margin-top: 0;
+        font-weight: bolder;
+        font-size: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .form-group input[type="text"] {
+        display: block;
+        width: 80%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    .form-group input[type="number"] {
+        display: block;
+        width: 80%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    .form-container button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .table-container {
+        width: 50vw;
+        margin: 60px auto;
+        padding: 10px;
+        border: 2px solid black;
+    }
+
+    .table-container table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table-container th,
+    .table-container td {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: left;
+        font-weight: 300;
+    }
+
+    .table-container th {
+        background-color: #f5f5f5;
+        font-weight: bold;
+    }
+
+    .table-container td {
+        background-color: white;
+    }
+
+    .table-container button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 3px 3px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .navbar {
+        background-color: #333;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
+
+    .navbar a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .navbar input[type=text] {
+        float: left;
+        padding: 6px;
+        border: none;
+        margin-top: 8px;
+        margin-left: 16px;
+        font-size: 17px;
+        width: 300px;
+    }
+
+    .navbar select {
+        float: left;
+        padding: 6px;
+        border: none;
+        margin-top: 8px;
+        margin-left: 16px;
+        font-size: 17px;
+        width: 200px;
+    }
+
+    .navbar .lefty {
+        float: right;
+    }
+
+    .navbar button {
+        background-color: #333;
+        border: none;
+        color: white;
+        padding: 16px;
+        font-size: 15px;
+    }
+
+    .navbar button:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .product-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .product-box {
+        width: 45%;
+        margin-top: 30px;
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .product-box img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .product-box h2 {
+        margin-top: 0;
+    }
+
+    .product-box p {
+        margin: 0;
+    }
+
+    main button {
+        background-color: #333;
+        border: none;
+        color: white;
+        padding: 12px;
+        font-size: 10px;
+    }
+
+    .controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: black;
+        padding: 10px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    .controls button {
+        background-color: rgb(23, 22, 22);
+        border: none;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .controls button:hover {
+        background-color: white;
+        color: black;
+    }
+
+    video {
+        width: 75%;
+    }
+
+    .editor {
+        margin-top: 80px;
+    }
+
+    .editor textarea {
+        width: 100%;
+        height: 250px;
+        margin-bottom: 10px;
+    }
+
+    .editor .button-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .editor .button {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        margin: 0 5px;
+    }
+
+    .editor .button:hover {
+        background-color: #45a049;
+    }
+
+
+    @media only screen and (max-width: 768px) {
+        .product-box {
+            width: 100%;
+        }
+    }
+</style>
+
+<body ng-app="myApp">
+
+    <div ng-view></div>
+
+    <script>
+        var app = angular.module("myApp", ["ngRoute"]);
+        app.config(function ($routeProvider) {
+            $routeProvider
+                .when("/", {
+                    templateUrl: "/main.html",
+                    controller: "HomeController"
+                })
+                .when("/customersignup", {
+                    templateUrl: "customer-signup.html",
+                    controller: "customersignUp"
+                })
+                .when("/farmersignup", {
+                    templateUrl: "farmer-signup.html",
+                    // controller: "customersignup"
+                })
+
+                .when("/farmer-list", {
+                    templateUrl: "farmer-list.html",
+                    controller: "productListController"
+                })
+
+                .when("/cust-view", {
+                    templateUrl: "cust-view.html",
+                    controller: "shoppingCart"
+                })
+
+                .when("/contact-us", {
+                    templateUrl: "editor.html",
+                    controller: "editor"
+                })
+
+                .when("/about-us", {
+                    templateUrl: "video.html",
+                    controller: "VideoPlayerController as vm"
+                })
+
+                .when("/blue", {
+                    templateUrl: "blue.html"
+                });
+        });
+
+        app.component('backbar', {
+            templateUrl: "backbar.html"
+        });
+
+        app.controller('VideoPlayerController', function () {
+            var vm = this;
+            vm.playPauseButton = 'Play';
+
+            vm.togglePlayPause = function () {
+                var video = document.querySelector('video');
+                if (video.paused) {
+                    video.play();
+                    vm.playPauseButton = 'Pause';
+                } else {
+                    video.pause();
+                    vm.playPauseButton = 'Play';
+                }
+            };
+
+            vm.skipBackward = function () {
+                var video = document.querySelector('video');
+                video.currentTime -= 20;
+            };
+
+            vm.fastForward = function () {
+                var video = document.querySelector('video');
+                video.currentTime += 20;
+            };
+
+            vm.restart = function () {
+                var video = document.querySelector('video');
+                video.currentTime = 0;
+                if (video.paused) {
+                    video.play();
+                    vm.playPauseButton = 'Pause';
+                }
+            };
+        });
+
+        app.controller("HomeController", function ($scope) {
+            $scope.message = "hello there";
+        });
+
+        app.controller('editor', function ($scope) {
+            $scope.editorContent = '';
+
+            // Copy text from textarea to clipboard
+            $scope.copyToClipboard = function () {
+                navigator.clipboard.writeText($scope.editorContent)
+                    .then(function () {
+                        alert('Text copied to clipboard');
+                    })
+                    .catch(function (err) {
+                        console.error('Failed to copy text: ', err);
+                    });
+            };
+
+            // Paste text from clipboard to textarea
+            $scope.pasteFromClipboard = function () {
+                navigator.clipboard.readText()
+                    .then(function (text) {
+                        $scope.editorContent = text;
+                    })
+                    .catch(function (err) {
+                        console.error('Failed to paste text: ', err);
+                    });
+            };
+
+            // Save text to local storage
+            $scope.saveToLocalStorage = function () {
+                localStorage.setItem('editorContent', $scope.editorContent);
+                alert('Text saved to local storage');
+            };
+
+            // Load text from local storage to textarea
+            $scope.loadFromLocalStorage = function () {
+                var savedContent = localStorage.getItem('editorContent');
+                if (savedContent) {
+                    $scope.editorContent = savedContent;
+                    alert('Text loaded from local storage');
+                } else {
+                    alert('No saved text found in local storage');
+                }
+            };
+
+            // Download text as a text file
+            $scope.downloadAsTextFile = function () {
+                var text = $scope.editorContent;
+                var blob = new Blob([text], { type: 'text/plain' });
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'text_file.txt';
+                a.click();
+                URL.revokeObjectURL(url);
+            };
+        });
+
+        app.controller("customersignUp", function ($scope, $http) {
+
+            $scope.cData = {
+                email:"",
+                username:"",
+                password:"",
+                confirmPassword:""
+            };
+            
+            $scope.submitForm = function () {
+                $http({
+                    method: 'POST',
+                    url: '/csubmit',
+                    data: $scope.cData
+                }).then(function (response) {
+                        console.log('Data sent')
+                    })
+                    .catch(function (error) {
+                        console.error('Error in sending data')
+                    })
+
+                alert($scope.username + " is Successfully signed up");
+            };
+        });
+
+        app.controller("productListController", function ($scope) {
+            $scope.productList = [];
+
+            $scope.addProduct = function () {
+                $scope.productList.push({
+                    name: $scope.productName,
+                    description: $scope.productDesc,
+                    price: $scope.productPrice
+                });
+                $scope.productName = "";
+                $scope.productDesc = "";
+                $scope.productPrice = "";
+            };
+
+            $scope.editProduct = function (index) {
+                $scope.productName = $scope.productList[index].name;
+                $scope.productDesc = $scope.productList[index].description;
+                $scope.productPrice = $scope.productList[index].price;
+                $scope.productList.splice(index, 1);
+            };
+
+
+            $scope.deleteProduct = function (index) {
+                $scope.productList.splice(index, 1);
+            };
+        });
+
+        app.controller('shoppingCart', function ($scope) {
+            $scope.cartItems = [];
+            $scope.totalPrice = 0;
+
+            $scope.products = [
+                {
+                    name: 'Product 1',
+                    image: 'https://via.placeholder.com/400x300.png',
+                    description: 'Lorem ipsum dolor sit amet, ro.',
+                    price: 49.99
+                },
+                {
+                    name: 'Product 2',
+                    image: 'https://via.placeholder.com/400x300.png',
+                    description: 'Suspendisse',
+                    price: 29.99
+                },
+                {
+                    name: 'Banana',
+                    image: 'https://via.placeholder.com/400x300.png',
+                    description: 'Lorem ipsum dolor sit amet, ro.',
+                    price: 149.99
+                },
+                {
+                    name: 'Mangoes',
+                    image: 'https://via.placeholder.com/400x300.png',
+                    description: 'Suspendisse',
+                    price: 79.99
+                },
+            ];
+            $scope.priceOptions = [
+                {
+                    value: '',
+                    label: 'All'
+                },
+                {
+                    value: 0,
+                    label: 'Under $50'
+                },
+                {
+                    value: 50,
+                    label: '$50 - $100'
+                },
+                {
+                    value: 100,
+                    label: '$100 - $150'
+                },
+                {
+                    value: 150,
+                    label: 'Over $150'
+                }
+            ];
+
+            $scope.productLayout = 'grid';
+
+            $scope.priceFilter = function (product) {
+                if (!$scope.filterPrice) {
+                    return true;
+                }
+
+                if ($scope.filterPrice === 0) {
+                    return product.price < 50;
+                }
+
+                if ($scope.filterPrice === 150) {
+                    return product.price >= 150;
+                }
+
+                if ($scope.filterPrice === 50) {
+                    return product.price > 50 && product.price < 100;
+                }
+
+                return product.price >= $scope.filterPrice && product.price < ($scope.filterPrice + 50);
+            };
+
+            app.service("cartData", function () {
+                var self = this;
+                self.cartData = {};
+
+                self.setCart = function (data) {
+                    self.cartData = data;
+                }
+
+                self.getCart = function (data) {
+                    return self.cartData;
+                }
+            })
+
+            $scope.addToCart = function (product) {
+                alert("Added " + product.name + " to the cart");
+                $scope.cartItems.push({
+                    name: product.name,
+                    price: product.price,
+                });
+                $scope.totalPrice += product.price;
+            };
+
+        });
+
+
+
+    </script>
+
+    <!-- <p>Click on the links to navigate </p> -->
+</body>
+
+</html>

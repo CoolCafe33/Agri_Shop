@@ -1,0 +1,10 @@
+<backbar></backbar>
+<center>
+    <video ng-src="./Ad video for Supermarket.mp4" ng-model="vm.video" controls></video>
+</center>
+<div class="controls">
+    <button ng-click="vm.skipBackward()">Skip Backward</button>
+    <button ng-click="vm.fastForward()">Fast Forward</button>
+    <button ng-click="vm.togglePlayPause()">{{vm.playPauseButton}}</button>
+    <button ng-click="vm.restart()">Restart</button>
+</div>
